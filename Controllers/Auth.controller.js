@@ -6,7 +6,7 @@ import {
   signRefreshToken,
   verifyRefreshToken,
 } from "../Helpers/jwt_helper.js";
-import redisClient from "../Helpers/init_redis.js";
+// import redisClient from "../Helpers/init_redis.js";
 
 export async function register(req, res, next) {
   try {
@@ -60,8 +60,8 @@ export async function logout(req, res, next) {
     const { refreshToken } = req.body;
     if (!refreshToken) throw createError.BadRequest();
     const userId = await verifyRefreshToken(refreshToken);
-    let result = await redisClient.DEL(userId);
-    console.log(result);
+    // let result = await redisClient.DEL(userId);
+    // console.log(result);
     res.sendStatus(204);
   } catch (err) {
     console.log(err.message);

@@ -5,7 +5,7 @@ import createError from "http-errors";
 import AuthRoute from "./Routes/Auth.route.js";
 import morgan from "morgan";
 import "./Helpers/init_mongodb.js";
-import "./Helpers/init_redis.js";
+// import "./Helpers/init_redis.js";
 import { verifyAccessToken } from "./Helpers/jwt_helper.js";
 dotenv.config();
 
