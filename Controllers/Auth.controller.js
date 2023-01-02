@@ -18,7 +18,13 @@ export async function register(req, res, next) {
     const savedUser = await user.save();
     const accessToken = await signAccessToken(savedUser.id);
     const refreshToken = await signRefreshToken(savedUser.id);
-    res.send({ accessToken, refreshToken });
+    res.send({
+      accessToken,
+      refreshToken,
+      email: savedUser.email,
+      first_name: savedUser.first_name,
+      last_name: savedUser.last_name,
+    });
   } catch (err) {
     if (err.isJoi === true) err.status = 422;
     next(err);

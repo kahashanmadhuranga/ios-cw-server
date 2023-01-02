@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import * as dotenv from "dotenv";
 dotenv.config();
 
-const MONGODB_URI = process.env.MONGODB_ATLAST_URI;
+const MONGODB_URI = process.env.MONGODB_URI;
 const DB_NAME = process.env.DB_NAME;
 
 mongoose.set("strictQuery", false);
@@ -24,7 +24,7 @@ mongoose.connection.on("error", (err) => {
 });
 
 mongoose.connection.on("disconnected", () => {
-  console.log("Mongoose conection is disconnected");
+  console.log("Mongoose connection is disconnected");
 });
 
 process.on("SIGINT", async () => {
