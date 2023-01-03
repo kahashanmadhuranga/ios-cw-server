@@ -1,6 +1,6 @@
 import createError from "http-errors";
 import User from "../Models/User.model.js";
-import authSchema from "../Validators/Auth.schema.js";
+import { authSchema, authLoginSchema } from "../Validators/Auth.schema.js";
 import {
   signAccessToken,
   signRefreshToken,
@@ -33,14 +33,22 @@ export async function register(req, res, next) {
 
 export async function login(req, res, next) {
   try {
-    const result = await authSchema.validateAsync(req.body);
+    const result = await authLoginSchema.validateAsync(req.body);
     const user = await User.findOne({ email: result.email });
     if (!user) throw createError.NotFound("User not registered");
     const isMatch = await user.isValidPassword(result.password);
     if (!isMatch) throw createError.Unauthorized("Invalid username/password");
     const accessToken = await signAccessToken(user.id);
     const refreshToken = await signRefreshToken(user.id);
-    res.send({ accessToken, refreshToken });
+    res.send({
+      accessToken,
+      refreshToken,
+      user: {
+        first_name: user.first_name,
+        last_name: user.last_name,
+        email: user.email,
+      },
+    });
   } catch (err) {
     if (err.isJoi === true)
       return next(createError.BadRequest("Invalid username/password"));
