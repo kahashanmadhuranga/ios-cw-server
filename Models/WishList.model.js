@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 
 const WishListSchema = new Schema(
   {
-    itemId: {
+    recipeId: {
       type: String,
       required: true,
     },

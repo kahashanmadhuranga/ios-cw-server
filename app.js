@@ -4,6 +4,7 @@ import * as dotenv from "dotenv";
 import createError from "http-errors";
 import AuthRoute from "./Routes/Auth.route.js";
 import RecipeRoute from "./Routes/Recipe.route.js";
+import WishListRoute from "./Routes/WishList.route.js";
 import morgan from "morgan";
 import "./Helpers/init_mongodb.js";
 // import "./Helpers/init_redis.js";
@@ -19,6 +20,7 @@ APP.use(json());
 APP.use(urlencoded({ extended: true }));
 APP.use("/auth", AuthRoute);
 APP.use("/recipes", RecipeRoute);
+APP.use("/wishlists", WishListRoute);
 
 APP.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
