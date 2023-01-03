@@ -26,7 +26,7 @@ APP.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-APP.get("/", verifyAccessToken, (req, res) => {
+APP.get("/", (req, res) => {
   res.send("OK");
 });
 
