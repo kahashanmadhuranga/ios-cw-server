@@ -4,12 +4,12 @@ import {
   getAll,
   deleteById,
 } from "../Controllers/WishListController.js";
-// import { verifyAccessToken } from "../Helpers/jwt_helper.js";
+import { verifyAccessToken } from "../Helpers/jwt_helper.js";
 
 const router = Router();
 
-router.post("/", create);
+router.post("/", verifyAccessToken, create);
 router.get("/:id", getAll);
-router.delete("/:userId/:recipeId", deleteById);
+router.delete("/:userId/:recipeId", verifyAccessToken, deleteById);
 
 export default router;
