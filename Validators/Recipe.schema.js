@@ -6,6 +6,11 @@ export const recipeSchema = Joi.object({
   ingredients: Joi.array(),
   imageUrls: Joi.array(),
   steps: Joi.array(),
+  type: Joi.string().valid("BREAKFAST", "LUNCH", "DINNER").required()
 });
 
-export default { recipeSchema };
+export const typeValidateSchema = Joi.object({
+  type: Joi.string().valid("BREAKFAST", "LUNCH", "DINNER")
+})
+
+export default { recipeSchema, typeValidateSchema };

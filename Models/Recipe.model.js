@@ -12,7 +12,8 @@ const RecipeSchema = new Schema(
     },
     ingredients: [String],
     imageUrls: [String],
-    steps: [String]
+    steps: [String],
+    type: ["BREAKFAST", "LUNCH", "DINNER"] 
   },
   { timestamps: true }
 );

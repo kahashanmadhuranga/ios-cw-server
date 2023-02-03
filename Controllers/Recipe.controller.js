@@ -1,6 +1,6 @@
 import createError from "http-errors";
 import Recipe from "../Models/Recipe.model.js";
-import { recipeSchema } from "../Validators/Recipe.schema.js";
+import { recipeSchema, typeValidateSchema } from "../Validators/Recipe.schema.js";
 import { mongooseIdSchema } from "../Validators/Mongoose.schema.js";
 
 export const create = async (req, res, next) => {
@@ -31,7 +31,12 @@ export const update = async (req, res, next) => {
 
 export const getAll = async (req, res, next) => {
   try {
-    const result = await Recipe.find();
+    const key = req.query.key;
+    const type = req.query.type;
+    if(type){
+      await typeValidateSchema.validateAsync({type});
+    }
+    const result = await Recipe.find(key ? { title: {'$regex' : key, '$options' : 'i'} } : (type ? {type} : {}));
     if (result.length === 0) throw createError.NotFound();
     res.send(result);
   } catch (err) {
